@@ -65,21 +65,26 @@
   <input type="text" name="nombre" placeholder="Nombre completo" required>
   <input type="email" name="correo" placeholder="Correo electrónico" required>
   <input type="tel" name="telefono" placeholder="Teléfono" required>
+
   <select name="tipoCarga" required>
     <option value="">Tipo de carga</option>
     <option value="General">General</option>
     <option value="Refrigerada">Refrigerada</option>
     <option value="Peligrosa">Peligrosa</option>
   </select>
+
   <input type="number" name="peso" placeholder="Peso estimado (kg)" required>
   <input type="text" name="origen" placeholder="Origen" required>
   <input type="text" name="destino" placeholder="Destino" required>
   <input type="date" name="fecha" required>
   <textarea name="comentarios" placeholder="Comentarios adicionales"></textarea>
+
   <button type="submit">Solicitar Cotización</button>
 </form>
 
-<div id="resultado" style="margin-top: 20px;"></div>
+<!-- Resultado del código generado -->
+<div id="resultado" style="margin-top: 15px;"></div>
+
 
 
 <div id="codigoGenerado" style="margin-top: 20px; font-weight: bold;"></div>
@@ -90,7 +95,7 @@
     <p>© 2025 XPRESS GA LOGISTICS · Desarrollado por Geovany y Alexander</p>
   </footer>
 
-  <script>
+ <script>
   document.getElementById("form-cotizacion").addEventListener("submit", function(e) {
     e.preventDefault();
     const datos = new FormData(this);
@@ -103,11 +108,43 @@
     .then(respuesta => {
       if (respuesta.success) {
         document.getElementById("resultado").innerHTML =
-          "Cotización registrada. Tu número de rastreo es: <b>" + respuesta.codigo + "</b>";
-        document.getElementById("form-cotizacion").reset();
+          "✅ Cotización enviada. Tu número de rastreo es: <b>" + respuesta.codigo + "</b>";
+        this.reset();
       } else {
-        document.getElementById("resultado").innerHTML = "Error: " + respuesta.error;
+        document.getElementById("resultado").innerHTML = "❌ Error: " + respuesta.error;
       }
+    })
+    .catch(() => {
+      document.getElementById("resultado").innerHTML = "❌ Error de conexión con el servidor.";
+    });
+  });
+</script>
+<script>
+  document.getElementById("form-cotizacion").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const datos = new FormData(this);
+
+    fetch("guardar_cotizacion.php", {
+      method: "POST",
+      body: datos
+    })
+    .then(res => res.json())
+    .then(respuesta => {
+      if (respuesta.success) {
+        //  Mensaje de éxito
+        document.getElementById("resultado").innerHTML =
+          "✅ Cotización enviada correctamente.<br>Tu número de rastreo es: <b style='color:green'>" + respuesta.codigo + "</b>";
+        this.reset(); // Limpia el formulario
+      } else {
+        //  Mensaje de error del servidor
+        document.getElementById("resultado").innerHTML =
+          " Error al guardar: " + respuesta.error;
+      }
+    })
+    .catch(() => {
+      //  Mensaje de error de conexión
+      document.getElementById("resultado").innerHTML =
+        " No se pudo conectar al servidor. Intenta de nuevo.";
     });
   });
 </script>

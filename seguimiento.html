@@ -6,7 +6,6 @@
   <title>Seguimiento de Envío - XPRESS GA LOGISTICS</title>
   <link rel="stylesheet" href="css/style.css"/>
 
-  <!-- ESTILOS EXTRAS INTERNOS -->
   <style>
     .seguimiento {
       padding: 40px 20px;
@@ -47,8 +46,7 @@
       padding: 20px;
       border-radius: 10px;
       max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 30px auto 0;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       display: none;
     }
@@ -81,8 +79,8 @@
     }
   </style>
 </head>
-<body>
 
+<body>
   <header>
     <h1>XPRESS GA LOGISTICS</h1>
     <nav>
@@ -123,43 +121,49 @@
   </footer>
 
   <script>
-  function consultarEnvio() {
-    const codigo = document.getElementById("codigo").value.trim();
-    const resultado = document.getElementById("resultado");
+    function consultarEnvio() {
+      const codigo = document.getElementById("codigo").value.trim();
+      const resultado = document.getElementById("resultado");
 
-    // Limpiar clases anteriores
-    document.getElementById("paso1").classList.remove("activo");
-    document.getElementById("paso2").classList.remove("activo");
-    document.getElementById("paso3").classList.remove("activo");
+      // Limpiar pasos anteriores
+      document.getElementById("paso1").classList.remove("activo");
+      document.getElementById("paso2").classList.remove("activo");
+      document.getElementById("paso3").classList.remove("activo");
 
-    const datos = localStorage.getItem(codigo);
+      fetch("consultar_envio.php?codigo=" + codigo)
+        .then(res => res.json())
+        .then(data => {
+          if (data.error) {
+            resultado.style.display = "block";
+            document.getElementById("res-codigo").textContent = codigo;
+            document.getElementById("res-estado").textContent = "No encontrado";
+            document.getElementById("res-ubicacion").textContent = "-";
+            document.getElementById("res-fecha").textContent = "-";
+          } else {
+            document.getElementById("res-codigo").textContent = codigo;
+            document.getElementById("res-estado").textContent = data.estado;
+            document.getElementById("res-ubicacion").textContent = data.ubicacion;
+            document.getElementById("res-fecha").textContent = data.fecha_registro;
 
-    if (datos) {
-      const info = JSON.parse(datos);
-      document.getElementById("res-codigo").textContent = codigo;
-      document.getElementById("res-estado").textContent = info.estado;
-      document.getElementById("res-ubicacion").textContent = info.ubicacion;
-      document.getElementById("res-fecha").textContent = info.actualizado;
+            // Activar barra de progreso
+            if (data.estado === "Procesando") {
+              document.getElementById("paso1").classList.add("activo");
+            } else if (data.estado === "En camino") {
+              document.getElementById("paso1").classList.add("activo");
+              document.getElementById("paso2").classList.add("activo");
+            } else if (data.estado === "Entregado") {
+              document.getElementById("paso1").classList.add("activo");
+              document.getElementById("paso2").classList.add("activo");
+              document.getElementById("paso3").classList.add("activo");
+            }
 
-      if (info.estado === "Procesando") {
-        document.getElementById("paso1").classList.add("activo");
-      } else if (info.estado === "En camino") {
-        document.getElementById("paso1").classList.add("activo");
-        document.getElementById("paso2").classList.add("activo");
-      } else if (info.estado === "Entregado") {
-        document.getElementById("paso1").classList.add("activo");
-        document.getElementById("paso2").classList.add("activo");
-        document.getElementById("paso3").classList.add("activo");
-      }
-
-      resultado.style.display = "block";
-    } else {
-      document.getElementById("res-codigo").textContent = codigo;
-      document.getElementById("res-estado").textContent = "No encontrado";
-      document.getElementById("res-ubicacion").textContent = "-";
-      document.getElementById("res-fecha").textContent = "-";
-      resultado.style.display = "block";
+            resultado.style.display = "block";
+          }
+        })
+        .catch(() => {
+          alert("Error al conectar con el servidor.");
+        });
     }
-  }
-</script>
+  </script>
+</body>
 </html>
