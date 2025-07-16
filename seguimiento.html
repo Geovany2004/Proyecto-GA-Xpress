@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seguimiento de Envío - XPRESS GA LOGISTICS</title>
+  <link rel="stylesheet" href="css/style.css"/>
+
+  <!-- ESTILOS EXTRAS INTERNOS -->
+  <style>
+    .seguimiento {
+      padding: 40px 20px;
+      text-align: center;
+      background-color: #f4f7fb;
+    }
+
+    .seguimiento h2 {
+      margin-bottom: 10px;
+    }
+
+    .seguimiento p {
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .seguimiento input[type="text"] {
+      padding: 12px;
+      width: 300px;
+      max-width: 90%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-right: 10px;
+    }
+
+    .seguimiento button {
+      padding: 12px 20px;
+      border: none;
+      background-color: #003366;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .resultado {
+      margin-top: 30px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      display: none;
+    }
+
+    .resultado h3 {
+      margin-bottom: 10px;
+      color: #003366;
+    }
+
+    .barra-progreso {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .paso {
+      flex: 1;
+      padding: 10px;
+      margin: 0 5px;
+      border-radius: 5px;
+      background: #ccc;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      transition: background 0.3s ease;
+    }
+
+    .paso.activo {
+      background: #003366;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>XPRESS GA LOGISTICS</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="cotizacion.html">Cotización</a></li>
+        <li><a href="seguimiento.html">Seguimiento</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="seguimiento">
+    <h2>Rastreo de Envío</h2>
+    <p>Ingresa el número de guía para conocer el estado de tu paquete.</p>
+
+    <input type="text" id="codigo" placeholder="Ej: XP123456CR" />
+    <button onclick="consultarEnvio()">Consultar</button>
+
+    <div class="resultado" id="resultado">
+      <h3>Estado del Envío</h3>
+      <p><strong>Código:</strong> <span id="res-codigo"></span></p>
+      <p><strong>Estado:</strong> <span id="res-estado"></span></p>
+      <p><strong>Ubicación actual:</strong> <span id="res-ubicacion"></span></p>
+      <p><strong>Última actualización:</strong> <span id="res-fecha"></span></p>
+
+      <div class="barra-progreso">
+        <div class="paso" id="paso1">Procesando</div>
+        <div class="paso" id="paso2">En camino</div>
+        <div class="paso" id="paso3">Entregado</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 XPRESS GA LOGISTICS · Desarrollado por Geovany y Alexander</p>
+  </footer>
+
+  <script>
+  function consultarEnvio() {
+    const codigo = document.getElementById("codigo").value.trim();
+    const resultado = document.getElementById("resultado");
+
+    // Limpiar clases anteriores
+    document.getElementById("paso1").classList.remove("activo");
+    document.getElementById("paso2").classList.remove("activo");
+    document.getElementById("paso3").classList.remove("activo");
+
+    const datos = localStorage.getItem(codigo);
+
+    if (datos) {
+      const info = JSON.parse(datos);
+      document.getElementById("res-codigo").textContent = codigo;
+      document.getElementById("res-estado").textContent = info.estado;
+      document.getElementById("res-ubicacion").textContent = info.ubicacion;
+      document.getElementById("res-fecha").textContent = info.actualizado;
+
+      if (info.estado === "Procesando") {
+        document.getElementById("paso1").classList.add("activo");
+      } else if (info.estado === "En camino") {
+        document.getElementById("paso1").classList.add("activo");
+        document.getElementById("paso2").classList.add("activo");
+      } else if (info.estado === "Entregado") {
+        document.getElementById("paso1").classList.add("activo");
+        document.getElementById("paso2").classList.add("activo");
+        document.getElementById("paso3").classList.add("activo");
+      }
+
+      resultado.style.display = "block";
+    } else {
+      document.getElementById("res-codigo").textContent = codigo;
+      document.getElementById("res-estado").textContent = "No encontrado";
+      document.getElementById("res-ubicacion").textContent = "-";
+      document.getElementById("res-fecha").textContent = "-";
+      resultado.style.display = "block";
+    }
+  }
+</script>
+</html>
