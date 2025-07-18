@@ -1,48 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cotización - XPRESS GA LOGISTICS</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css" />
 </head>
-<script>
-  function generarCodigo() {
-    const random = Math.floor(100000 + Math.random() * 900000);
-    return "XP" + random + "CR";
-  }
-
-  function guardarCotizacion(e) {
-    e.preventDefault();
-
-    const codigo = generarCodigo();
-    const datos = {
-      nombre: document.getElementById("nombre").value,
-      correo: document.getElementById("correo").value,
-      telefono: document.getElementById("telefono").value,
-      tipoCarga: document.getElementById("tipoCarga").value,
-      peso: document.getElementById("peso").value,
-      origen: document.getElementById("origen").value,
-      destino: document.getElementById("destino").value,
-      fecha: document.getElementById("fecha").value,
-      comentarios: document.getElementById("comentarios").value,
-      estado: "Procesando",
-      ubicacion: "Centro de logística",
-      actualizado: new Date().toLocaleDateString()
-    };
-
-    // Guardar en LocalStorage
-    localStorage.setItem(codigo, JSON.stringify(datos));
-
-    // Mostrar el código al usuario
-    document.getElementById("codigoGenerado").innerHTML =
-      "Tu número de rastreo es: <span style='color:green'>" + codigo + "</span>";
-    
-    // Reiniciar formulario
-    document.getElementById("form-cotizacion").reset();
-  }
-</script>
-
 <body>
   <header>
     <h1>XPRESS GA LOGISTICS</h1>
@@ -61,93 +24,38 @@
     <h2>Solicita tu Cotización</h2>
     <p>Completa el siguiente formulario para cotizar tu envío.</p>
 
-  <form id="form-cotizacion">
-  <input type="text" name="nombre" placeholder="Nombre completo" required>
-  <input type="email" name="correo" placeholder="Correo electrónico" required>
-  <input type="tel" name="telefono" placeholder="Teléfono" required>
+  
 
-  <select name="tipoCarga" required>
-    <option value="">Tipo de carga</option>
-    <option value="General">General</option>
-    <option value="Refrigerada">Refrigerada</option>
-    <option value="Peligrosa">Peligrosa</option>
-  </select>
-
-  <input type="number" name="peso" placeholder="Peso estimado (kg)" required>
-  <input type="text" name="origen" placeholder="Origen" required>
-  <input type="text" name="destino" placeholder="Destino" required>
-  <input type="date" name="fecha" required>
-  <textarea name="comentarios" placeholder="Comentarios adicionales"></textarea>
-
-  <button type="submit">Solicitar Cotización</button>
-</form>
-
-<!-- Resultado del código generado -->
-<div id="resultado" style="margin-top: 15px;"></div>
+      <form action="guardar_cotizaciones.php" method="POST">
 
 
+      <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required />
+      <input type="email" id="correo" name="correo" placeholder="Correo electrónico" required />
+      <input type="tel" id="telefono" name="telefono" placeholder="Teléfono" required />
 
-<div id="codigoGenerado" style="margin-top: 20px; font-weight: bold;"></div>
+      <select id="tipoCarga" name="tipoCarga" required>
+        <option value="">Tipo de carga</option>
+        <option value="General">General</option>
+        <option value="Refrigerada">Refrigerada</option>
+        <option value="Peligrosa">Peligrosa</option>
+      </select>
 
+      <input type="number" id="peso" name="peso" placeholder="Peso estimado (kg)" required min="0.1" step="0.1" />
+      <input type="text" id="origen" name="origen" placeholder="Origen" required />
+      <input type="text" id="destino" name="destino" placeholder="Destino" required />
+      <input type="date" id="fecha" name="fecha" required />
+      <textarea id="comentarios" name="comentarios" placeholder="Comentarios adicionales"></textarea>
+
+      <button type="submit">Solicitar Cotización</button>
+    </form>
+
+    <div id="resultado" style="margin-top: 20px; font-weight: bold;"></div>
   </section>
 
   <footer>
     <p>© 2025 XPRESS GA LOGISTICS · Desarrollado por Geovany y Alexander</p>
   </footer>
 
- <script>
-  document.getElementById("form-cotizacion").addEventListener("submit", function(e) {
-    e.preventDefault();
-    const datos = new FormData(this);
-
-    fetch("guardar_cotizacion.php", {
-      method: "POST",
-      body: datos
-    })
-    .then(res => res.json())
-    .then(respuesta => {
-      if (respuesta.success) {
-        document.getElementById("resultado").innerHTML =
-          "✅ Cotización enviada. Tu número de rastreo es: <b>" + respuesta.codigo + "</b>";
-        this.reset();
-      } else {
-        document.getElementById("resultado").innerHTML = "❌ Error: " + respuesta.error;
-      }
-    })
-    .catch(() => {
-      document.getElementById("resultado").innerHTML = "❌ Error de conexión con el servidor.";
-    });
-  });
-</script>
-<script>
-  document.getElementById("form-cotizacion").addEventListener("submit", function(e) {
-    e.preventDefault();
-    const datos = new FormData(this);
-
-    fetch("guardar_cotizacion.php", {
-      method: "POST",
-      body: datos
-    })
-    .then(res => res.json())
-    .then(respuesta => {
-      if (respuesta.success) {
-        //  Mensaje de éxito
-        document.getElementById("resultado").innerHTML =
-          "✅ Cotización enviada correctamente.<br>Tu número de rastreo es: <b style='color:green'>" + respuesta.codigo + "</b>";
-        this.reset(); // Limpia el formulario
-      } else {
-        //  Mensaje de error del servidor
-        document.getElementById("resultado").innerHTML =
-          " Error al guardar: " + respuesta.error;
-      }
-    })
-    .catch(() => {
-      //  Mensaje de error de conexión
-      document.getElementById("resultado").innerHTML =
-        " No se pudo conectar al servidor. Intenta de nuevo.";
-    });
-  });
-</script>
-
+  
 </body>
 </html>
