@@ -1,6 +1,6 @@
 import { supabase } from './supabase-client.js';
 
-const form = document.querySelector('#form-cotizacion');
+const form = document.querySelector('#cotizacionForm');
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
