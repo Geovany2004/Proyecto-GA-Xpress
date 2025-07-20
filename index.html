@@ -53,21 +53,5 @@
   );
 </script>
 
-  // Prueba: lista las filas de una tabla ficticia
-  async function testConnection() {
-    const { data, error } = await supabase.from('cotizaciones').select('*');
-
-    if (error) {
-      console.error('❌ Error consultando la tabla:', error);
-      alert('Conexión establecida, pero la tabla no existe aún.');
-    } else {
-      console.log('✅ Datos:', data);
-      alert('Conexión a Supabase exitosa.');
-    }
-  }
-
-  window.addEventListener('DOMContentLoaded', testConnection);
-</script>
-
 </body>
 </html>
