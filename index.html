@@ -44,5 +44,30 @@
   <footer>
     <p>© 2025 XPRESS GA LOGISTICS · Desarrollado por Geovany y Alexander</p>
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const supabase = supabase.createClient(
+    'https://ntbnkxwcjdycimlhjpih.supabase.co', 
+    '<eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50Ym5reHdjamR5Y2ltbGhqcGloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI4MDY4MzUsImV4cCI6MjA2ODM4MjgzNX0.g6ICsBpyDJN1Iu4KBpQLsTt5eXZBWPA5F1sjmg04rXg'
+  );
+</script>
+
+  // Prueba: lista las filas de una tabla ficticia
+  async function testConnection() {
+    const { data, error } = await supabase.from('cotizaciones').select('*');
+
+    if (error) {
+      console.error('❌ Error consultando la tabla:', error);
+      alert('Conexión establecida, pero la tabla no existe aún.');
+    } else {
+      console.log('✅ Datos:', data);
+      alert('Conexión a Supabase exitosa.');
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', testConnection);
+</script>
+
 </body>
 </html>
