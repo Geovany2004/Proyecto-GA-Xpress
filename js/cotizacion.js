@@ -1,35 +1,41 @@
 import { supabase } from './supabase-client.js';
 
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.querySelector("form");
+const form = document.querySelector('#form-cotizacion');
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-    const data = {
-      nombre: form.nombre.value,
-      correo: form.correo.value,
-      telefono: form.telefono.value,
-      tipo_carga: form.tipoCarga.value,
-      peso: parseFloat(form.peso.value),
-      origen: form.origen.value,
-      destino: form.destino.value,
-      fecha_envio: form.fecha.value,
-      comentarios: form.comentarios.value,
-      codigo_rastreo: `XP${Math.floor(Math.random()*900000)+100000}CR`,
-      estado: "Procesando"
-    };
+  const { data: { user } } = await supabase.auth.getUser();
 
-    const { error } = await supabase.from("cotizaciones").insert(data);
+  if (!user) {
+    alert('Debes iniciar sesión para cotizar.');
+    window.location.href = 'login.html';
+    return;
+  }
 
-    const resultado = document.getElementById("resultado");
-    if (error) {
-      resultado.textContent = `❌ Error: ${error.message}`;
-      resultado.style.color = "red";
-    } else {
-      resultado.textContent = `✅ Cotización registrada correctamente. Código: ${data.codigo_rastreo}`;
-      resultado.style.color = "green";
-      form.reset();
-    }
-  });
+  const payload = {
+    nombre: form.nombre.value,
+    correo: form.correo.value,
+    telefono: form.telefono.value,
+    tipo_carga: form.tipoCarga.value,
+    peso: parseFloat(form.peso.value),
+    origen: form.origen.value,
+    destino: form.destino.value,
+    fecha_envio: form.fecha.value,
+    comentarios: form.comentarios.value,
+    codigo_rastreo: 'XP' + Math.floor(Math.random() * 1000000) + 'CR',
+    user_id: user.id,
+    estado: 'En proceso'
+  };
+
+  const { error } = await supabase
+    .from('cotizaciones')
+    .insert(payload);
+
+  if (error) {
+    alert(`❌ Error al guardar cotización: ${error.message}`);
+  } else {
+    alert(`✅ Cotización registrada. Tu código de rastreo es: ${payload.codigo_rastreo}`);
+    form.reset();
+  }
 });

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Panel - XPRESS GA LOGISTICS</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .header-actions {
+    text-align: right;
+    margin-top: -40px;
+  }
+  .header-actions button {
+    background: #003366;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>XPRESS GA LOGISTICS - Mi Panel</h1>
+  <div class="header-actions">
+    <span id="bienvenida"></span>
+    <button id="logout-btn">Cerrar sesión</button>
+  </div>
+</header>
+
+<section>
+  <h2>Mis Cotizaciones</h2>
+  <p>Aquí puedes consultar todas tus cotizaciones y su estado.</p>
+
+<table id="tabla-cotizaciones" border="1" cellpadding="10" style="width:100%">
+  <thead>
+    <tr>
+      <th>Código</th>
+      <th>Origen</th>
+      <th>Destino</th>
+      <th>Fecha</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Cotizaciones del usuario aparecerán aquí -->
+  </tbody>
+</table>
+</section>
+
+<script type="module" src="js/dashboard.js"></script>
+</body>
+</html>
