@@ -1,9 +1,4 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
-
-// Datos de tu proyecto
-const supabaseUrl = 'https://TU-PROYECTO.supabase.co'
-const supabaseKey = 'TU-KEY-ANON'
-const supabase = createClient(supabaseUrl, supabaseKey)
+import { supabase } from './supabase-client.js'
 
 document.addEventListener('DOMContentLoaded', async () => {
   const { data: { user } } = await supabase.auth.getUser()
@@ -17,10 +12,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   cargarCotizaciones(user.id)
 
   const logoutBtn = document.getElementById('logout-btn')
-  logoutBtn.addEventListener('click', async () => {
-    await supabase.auth.signOut()
-    window.location.href = 'login.html'
-  })
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', async () => {
+      await supabase.auth.signOut()
+      window.location.href = 'login.html'
+    })
+  }
 })
 
 async function cargarCotizaciones(userId) {
@@ -39,7 +36,7 @@ async function cargarCotizaciones(userId) {
   tbody.innerHTML = ''
 
   if (data.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="5">No tienes cotizaciones registradas aún.</td></tr>'
+    tbody.innerHTML = '<tr><td colspan="6">No tienes cotizaciones registradas aún.</td></tr>'
     return
   }
 
@@ -51,7 +48,28 @@ async function cargarCotizaciones(userId) {
       <td>${c.destino}</td>
       <td>${c.fecha_envio}</td>
       <td>${c.estado}</td>
+      <td>
+        ${c.estado !== 'Cancelado'
+          ? `<button onclick="cancelarCotizacion('${c.id}')">Cancelar</button>`
+          : '—'}
+      </td>
     `
     tbody.appendChild(tr)
   })
+}
+
+window.cancelarCotizacion = async (id) => {
+  if (!confirm('¿Seguro que deseas cancelar esta cotización?')) return
+
+  const { error } = await supabase
+    .from('cotizaciones')
+    .update({ estado: 'Cancelado' })
+    .eq('id', id)
+
+  if (error) {
+    alert('Error al cancelar')
+  } else {
+    alert('Cotización cancelada')
+    location.reload()
+  }
 }

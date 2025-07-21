@@ -65,8 +65,8 @@ body {
 }
 
 .btn-volver {
-  position: fixed; /* fija el botón en la pantalla */
-  top: 20px; /* distancia del borde superior */
+  position: fixed;
+  top: 20px; 
   left: 20px; /* distancia del borde izquierdo */
   background-color: #003366;
   color: white;

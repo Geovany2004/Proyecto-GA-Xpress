@@ -17,6 +17,6 @@ form.addEventListener('submit', async (e) => {
     alert(`❌ Error: ${error.message}`);
   } else {
     alert('✅ Inicio de sesión correcto');
-    window.location.href = 'index.html';
+    window.location.href = 'dashboard.html';
   }
 });

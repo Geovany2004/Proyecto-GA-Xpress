@@ -7,23 +7,50 @@ body {
 }
 
 header {
-  background: #003366;
+  background-color: #003366;
   color: #fff;
-  padding: 20px;
+  padding: 10px 20px;
   text-align: center;
+  position: relative;
 }
 
-header nav ul {
+.header-container {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.titulo-principal {
+  margin: 0;
+  font-size: 28px;
+}
+
+.nav-principal {
+  margin-top: 10px;
+}
+
+.nav-principal ul {
   list-style: none;
+  margin: 0;
   padding: 0;
-  margin: 10px 0 0;
-  display: flex;
-  justify-content: center;
+  display: inline-flex;
   gap: 20px;
 }
 
-header nav ul li a {
+.nav-principal ul li a {
   color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-container {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+.login-container a {
+  color: #fea618;
   text-decoration: none;
   font-weight: bold;
 }
@@ -292,27 +319,4 @@ footer {
 .icono-servicio {
   color: #003366;
   margin-bottom: 15px;
-}
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-header .user-actions {
-  margin-right: 20px;
-}
-
-header .user-actions button {
-  background: #c29542;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-header .user-actions button:hover {
-  background: #a07835;
 }
