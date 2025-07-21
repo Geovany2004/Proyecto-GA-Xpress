@@ -260,46 +260,6 @@ footer {
 
 .servicio-box {
   background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-}
-
-.servicio-box:hover {
-  transform: translateY(-5px);
-}
-
-.servicio-box h3 {
-  color: #003366;
-  margin-bottom: 10px;
-}
-
-.servicios {
-  padding: 40px 20px;
-  text-align: center;
-  background: #f0f4f8;
-}
-
-.servicios h2 {
-  font-size: 28px;
-  margin-bottom: 10px;
-}
-
-.servicios p {
-  font-size: 16px;
-  color: #444;
-  margin-bottom: 30px;
-}
-
-.servicios-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.servicio-box {
-  background: white;
   padding: 25px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.08);
@@ -319,4 +279,56 @@ footer {
 .icono-servicio {
   color: #003366;
   margin-bottom: 15px;
+}
+
+.header-actions {
+    text-align: right;
+    margin-top: -40px;
+}
+
+.header-actions button {
+    background: #003366;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contact-info {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #f4f9ff;
+}
+
+.contact-info h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #003366;
+}
+
+.contact-info p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.info-box {
+  margin: 20px 0;
+}
+
+.btn-whatsapp {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 20px;
+  background-color: #25D366;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.btn-whatsapp i {
+  margin-right: 8px;
+  font-size: 20px;
 }

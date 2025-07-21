@@ -5,20 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mi Panel - XPRESS GA LOGISTICS</title>
 <link rel="stylesheet" href="css/style.css">
-<style>
-  .header-actions {
-    text-align: right;
-    margin-top: -40px;
-  }
-  .header-actions button {
-    background: #003366;
-    color: white;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-</style>
+
 </head>
 <body>
 
@@ -26,21 +13,22 @@
   <div class="header-container">
     <h1 class="titulo-principal">XPRESS GA LOGISTICS</h1>
     <nav class="nav-principal">
-    <span id="bienvenida"></span>
-    <button id="logout-btn">Cerrar sesión</button>
-      <nav>
       <ul>
         <li><a href="index.html">Inicio</a></li>
+        <li><a href="cotizacion.html">Cotización</a></li>
         <li><a href="seguimiento.html">Seguimiento</a></li>
         <li><a href="servicios.html">Servicios</a></li>
         <li><a href="contacto.html">Contacto</a></li>
       </ul>
-  </nav>
+    </nav>
+    <div class="login-container">
+      <a href="#" id="logout-btn">Cerrar sesión</a>    </div>
   </div>
 </header>
 
 <section>
-  <h2>Mis Cotizaciones</h2>
+  <main style="padding: 20px; max-width: 1000px; margin: auto;">
+  <h2>Bienvenid@, <span id="usuario-nombre"></span></h2>
   <p>Aquí puedes consultar todas tus cotizaciones y su estado.</p>
 
 <table id="tabla-cotizaciones" border="1" cellpadding="10" style="width:100%">
@@ -56,8 +44,12 @@
   </thead>
 <tbody id="tabla-cotizaciones"></tbody>
 </table>
+</main>
 </section>
 
+<footer>
+  <p>© 2025 XPRESS GA LOGISTICS · Desarrollado por Geovany y Alexander</p>
+</footer>
 <script type="module" src="js/dashboard.js"></script>
 </body>
 </html>

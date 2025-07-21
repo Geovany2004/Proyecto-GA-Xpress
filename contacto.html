@@ -1,18 +1,14 @@
-
-
-
-<body>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contacto - XPRESS GA LOGISTICS</title>
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contacto - XPRESS GA LOGISTICS</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
- <header>
+<header>
   <div class="header-container">
     <h1 class="titulo-principal">XPRESS GA LOGISTICS</h1>
     <nav class="nav-principal">
@@ -26,73 +22,27 @@
     </nav>
     <div class="login-container">
       <a href="login.html" id="login-link">Iniciar sesión</a>
-    </div>
   </div>
 </header>
-   <section>
-  
-        <img src="camion4.jpg" alt="Bannerprincipal" width="31%" height="50%">
-        
-        <img src="camion3.jpg" alt="Bannerprincipal" width="35%" height="50%">
-          <img src="Camion1.jpg" alt="Bannerprincipal" width="33%" height="50%">
-        
-    </section>
 
-  <section class="contact-container">
-    <div class="contact-left">
-      <h2>Contactanos<br>Podemos resolver tus necesidades<h2>
-      <p><strong>TU CARGA, NUESTRO COMPROMISO</strong></p>
-      <div class="contact-info">
-        <p>📞 +506-71367671</p>
-        <p>✉️ info@xpressgalogistics.com</p>
-      </div>
-      <a class="btn-gold" href="cotizacion.html">Aplicar ahora</a>
-    </div>
+<section class="contact-info">
+  <h2>Contáctanos</h2>
+  <p><strong>TU CARGA, NUESTRO COMPROMISO</strong></p>
 
-    <div class="contact-right">
-      <form action="#" method="post">
-        <div class="row">
-          <input type="text" placeholder="First Name" required>
-          <input type="text" placeholder="Last Name" required>
-        </div>
-        <div class="row">
-          <input type="tel" placeholder="Phone Number" required>
-          <input type="email" placeholder="Email Address" required>
-        </div>
-        <textarea placeholder="Message" rows="5" required></textarea>
-        <button type="submit" class="btn-black">Submit</button>
-      </form>
-    </div>
-  </section>
-  
+  <div class="info-box">
+    <p><i class="fas fa-phone"></i> Teléfono: <strong>+506 7136-7671</strong></p>
+    <p><i class="fas fa-envelope"></i> Correo: <strong>info@xpressgalogistics.com</strong></p>
+  </div>
+
+  <a href="https://wa.me/50671367671" target="_blank" class="btn-whatsapp">
+    <i class="fab fa-whatsapp"></i> Chatea con nosotros por WhatsApp
+  </a>
 </section>
 
+<script type="module" src="js/header.js"></script>
 
-  <footer>
-    <p>© 2025 XPRESS GA LOGISTICS · Desarrollado por Geovany y Alexander</p>
-  </footer>
-
-<script type="module">
-import { supabase } from './js/supabase-client.js';
-
-const menu = document.querySelector('nav ul');
-const loginItem = menu.querySelector('a[href="login.html"]');
-const saludo = document.querySelector('#saludo'); // opcional, si lo tienes
-
-supabase.auth.getUser().then(({ data: { user } }) => {
-  if (user) {
-    if (saludo) {
-      saludo.textContent = `Bienvenido, ${user.email}`;
-    }
-    loginItem.textContent = 'Cerrar sesión';
-    loginItem.href = '#';
-    loginItem.addEventListener('click', async () => {
-      await supabase.auth.signOut();
-      window.location.reload();
-    });
-  }
-});
-</script>
-
+<footer>
+  <p>© 2025 XPRESS GA LOGISTICS · Desarrollado por Geovany y Alexander</p>
+</footer>
 </body>
 </html>

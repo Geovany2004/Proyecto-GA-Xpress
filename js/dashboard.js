@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     return
   }
 
+    // Mostrar mensaje de bienvenida
+  const usuarioNombre = document.getElementById('usuario-nombre');
+  usuarioNombre.textContent = user.email;
   cargarCotizaciones(user.id)
 
   const logoutBtn = document.getElementById('logout-btn')
@@ -26,14 +29,14 @@ async function cargarCotizaciones(userId) {
     .select('*')
     .eq('user_id', userId)
 
+  const tbody = document.querySelector('#tabla-cotizaciones tbody');
+  tbody.innerHTML = '';
+
   if (error) {
     console.error(error)
     alert('Error al cargar cotizaciones')
     return
   }
-
-  const tbody = document.querySelector('#tabla-cotizaciones tbody')
-  tbody.innerHTML = ''
 
   if (data.length === 0) {
     tbody.innerHTML = '<tr><td colspan="6">No tienes cotizaciones registradas aún.</td></tr>'
