@@ -37,5 +37,6 @@ form.addEventListener('submit', async (e) => {
   } else {
     alert(`✅ Cotización registrada. Tu código de rastreo es: ${payload.codigo_rastreo}`);
     form.reset();
+    window.location.href = 'dashboard.html';
   }
 });
