@@ -73,6 +73,7 @@ supabase.auth.getUser().then(({ data: { user } }) => {
     loginItem.textContent = 'Cerrar sesión';
     loginItem.href = '#';
     loginItem.addEventListener('click', async () => {
+      alert('Sesión Finalizada');
       await supabase.auth.signOut();
       window.location.reload();
     });
