@@ -21,25 +21,30 @@
 </div>
 
 <script type="module">
-  import { createClient } from 'https://esm.sh/@supabase/supabase-js';
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js'
 
-  const supabase = createClient('https://ntbnkxwcjdycimlhjpih.supabase.co', 
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50Ym5reHdjamR5Y2ltbGhqcGloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI4MDY4MzUsImV4cCI6MjA2ODM4MjgzNX0.g6ICsBpyDJN1Iu4KBpQLsTt5eXZBWPA5F1sjmg04rXg');
+  const supabase = createClient('https://ntbnkxwcjdycimlhjpih.supabase.co',
+   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50Ym5reHdjamR5Y2ltbGhqcGloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI4MDY4MzUsImV4cCI6MjA2ODM4MjgzNX0.g6ICsBpyDJN1Iu4KBpQLsTt5eXZBWPA5F1sjmg04rXg')
 
   document.getElementById('recovery-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('recovery-email').value;
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: 'https://xpressgalogistics.netlify.app/reset-password.html'
-    });
+    e.preventDefault()
+    const email = document.getElementById('recovery-email').value
+    const msg = document.getElementById('recovery-msg')
 
-    const msg = document.getElementById('recovery-msg');
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: 'https://xpressgalogistics.netlify.app/reset-password.html' // Ajusta según tu entorno real
+    })
+
     if (error) {
-      msg.textContent = 'Error: ' + error.message;
+      if (error.message.toLowerCase().includes('invalid')) {
+        msg.textContent = 'El correo no es válido o no está registrado.'
+      } else {
+        msg.textContent = 'Ocurrió un error al enviar el correo. Intenta nuevamente más tarde.'
+      }
     } else {
-      msg.textContent = 'Revisa tu correo para restablecer tu contraseña.';
+      msg.textContent = 'Revisa tu correo. Te enviamos un enlace para restablecer tu contraseña.'
     }
-  });
+  })
 </script>
 
 </body>
