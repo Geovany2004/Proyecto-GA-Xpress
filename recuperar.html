@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recuperar Contraseña - XPRESS GA LOGISTICS</title>
+  <link rel="stylesheet" href="css/login.css" />
+</head>
+
+<body>
+
+<a href="index.html" class="btn-volver">← Volver a Inicio</a>
+
+<div class="login-container">
+  <h2>Recuperar Contraseña</h2>
+  <form id="recovery-form">
+    <input type="email" id="recovery-email" placeholder="Correo electrónico" required />
+    <button type="submit">Enviar enlace de recuperación</button>
+  </form>
+  <p id="recovery-msg"></p>
+</div>
+
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js';
+
+  const supabase = createClient('https://ntbnkxwcjdycimlhjpih.supabase.co', '<eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50Ym5reHdjamR5Y2ltbGhqcGloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI4MDY4MzUsImV4cCI6MjA2ODM4MjgzNX0.g6ICsBpyDJN1Iu4KBpQLsTt5eXZBWPA5F1sjmg04rXg');
+
+  document.getElementById('recovery-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('recovery-email').value;
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: 'https://xpressgalogistics.netlify.app/reset-password.html'
+    });
+
+    const msg = document.getElementById('recovery-msg');
+    if (error) {
+      msg.textContent = 'Error: ' + error.message;
+    } else {
+      msg.textContent = 'Revisa tu correo para restablecer tu contraseña.';
+    }
+  });
+</script>
+
+</body>
+</html>
