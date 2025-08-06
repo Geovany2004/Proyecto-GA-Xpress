@@ -26,8 +26,8 @@ window.consultarEnvio = async () => {
     document.getElementById("res-ubicacion").textContent = data.origen + " → " + data.destino;
     document.getElementById("res-fecha").textContent = data.fecha_envio;
 
-    if (data.estado === "Procesando") document.getElementById("paso1").classList.add("activo");
-    if (data.estado === "En tránsito") {
+    if (data.estado === "En proceso") document.getElementById("paso1").classList.add("activo");
+    if (data.estado === "En camino") {
       document.getElementById("paso1").classList.add("activo");
       document.getElementById("paso2").classList.add("activo");
     }
