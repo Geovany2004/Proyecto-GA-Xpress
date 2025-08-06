@@ -36,7 +36,7 @@ window.consultarEnvio = async () => {
       document.getElementById("paso2").classList.add("activo");
       document.getElementById("paso3").classList.add("activo");
     }
-
+ 
     resultado.style.display = "block";
   }
 };
