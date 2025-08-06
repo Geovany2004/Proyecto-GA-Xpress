@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const logoutBtn = document.getElementById('logout-btn')
   if (logoutBtn) {
     logoutBtn.addEventListener('click', async () => {
+      alert('Sesión Finalizada')
       await supabase.auth.signOut()
       window.location.href = 'login.html'
     })

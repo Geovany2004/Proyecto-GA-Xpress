@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       loginLink.textContent = 'Cerrar sesión'
       loginLink.href = '#'
       loginLink.addEventListener('click', async () => {
+        alert('Sesión Finalizada')
         await supabase.auth.signOut()
         window.location.href = 'index.html'
       })
