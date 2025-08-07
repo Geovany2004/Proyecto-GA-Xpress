@@ -26,12 +26,27 @@
     </div>
   </div>
 </header>
-        <section> 
-          <center>
-            <img src= "camion2.jpg" alt="Bannerprincipal" width="100%" height="650%">
-          </center>  
-        
-    </section>
+        <section class="slider-alt">
+  <div class="slides-alt" id="slidesAlt">
+
+    <img src="/img/camiones1.jpeg" alt="Imagen 0" class="slide-alt">
+    <img src="/img/camiones.jpeg" alt="Imagen 1" class="slide-alt">
+    <img src="/img/camion1.jpg" alt="Imagen 2" class="slide-alt">
+    <img src="/img/camion2.jpg" alt="Imagen 3" class="slide-alt">
+    <img src="/img/camion3.jpg" alt="Imagen 4" class="slide-alt">
+    <img src="/img/camion5.jpeg" alt="Imagen 5" class="slide-alt">
+    <img src="/img/camion6.jpg" alt="Imagen 6" class="slide-alt">
+    <img src="/img/camion9.jpg" alt="Imagen 9" class="slide-alt">
+    <img src="/img/camion10.jpg" alt="Imagen 10" class="slide-alt">
+    <img src="/img/camion11.jpeg" alt="Imagen 11" class="slide-alt">
+  </div>
+
+    <button class="nav-alt prev-alt">&#10094;</button>
+    <button class="nav-alt next-alt">&#10095;</button>
+
+    <div class="pagination-alt" id="paginationAlt"></div>
+  </section>
+
   <section>
   <section class="hero">
     <h2>Soluciones de transporte a todo Costa Rica</h2>
@@ -85,6 +100,6 @@ supabase.auth.getUser().then(({ data: { user } }) => {
 </script>
 
 <script type="module" src="js/header.js"></script>
-
+<script src="js/slider.js"></script>
 </body>
 </html>
