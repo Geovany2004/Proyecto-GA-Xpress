@@ -67,7 +67,7 @@ body {
 .btn-volver {
   position: fixed;
   top: 20px; 
-  left: 20px; /* distancia del borde izquierdo */
+  left: 20px;
   background-color: #003366;
   color: white;
   padding: 10px 18px;
